@@ -8,15 +8,58 @@
 
 import UIKit
 
-struct Entity {
-    let image:UIImage
-    let name: String
+enum SWEntityType: String {
+    case character = "Characters"
+    case vehicle = "Vehicles"
+    case starship = "Starships"
 }
 
-struct EntityData {
-    static let entities = [
-        Entity(image: #imageLiteral(resourceName: "icon-characters"), name: "Characters"),
-        Entity(image: #imageLiteral(resourceName: "icon-vehicles"), name: "Vehicles"),
-        Entity(image: #imageLiteral(resourceName: "icon-starships"), name: "Starships")
+protocol SWEntity {
+    var icon: UIImage { get }
+    var type: SWEntityType { get }
+}
+
+//class SWEntity {
+//
+//    let icon: UIImage
+//    let type: SWEntityType
+//    
+//    init(icon: UIImage, type: SWEntityType) {
+//        self.icon = icon
+//        self.type = type
+//    }
+//}
+
+//struct SWEntityData {
+//    static let entities = [
+//        SWEntity(icon: #imageLiteral(resourceName: "icon-characters"), type: .character),
+//        SWEntity(icon: #imageLiteral(resourceName: "icon-vehicles"), type: .vehicle),
+//        SWEntity(icon: #imageLiteral(resourceName: "icon-starships"), type: .starship)
+//    ]
+//}
+
+//struct SWEntityData {
+//    static let entities:[SWEntityType] = [.character, .vehicle, .starship]
+//}
+
+struct MainMenuItem {
+    
+    let icon: UIImage
+    let type: SWEntityType
+    
+    init(icon: UIImage, type: SWEntityType) {
+        self.icon = icon
+        self.type = type
+    }
+}
+
+struct MainMenuData {
+    
+    static let mainMenuEntities: [MainMenuItem] = [
+    
+        MainMenuItem(icon: #imageLiteral(resourceName: "icon-characters"), type: .character),
+        MainMenuItem(icon: #imageLiteral(resourceName: "icon-vehicles"), type: .vehicle),
+        MainMenuItem(icon: #imageLiteral(resourceName: "icon-starships"), type: .starship)
     ]
 }
+
