@@ -17,11 +17,13 @@ class MainListController: UITableViewController {
     //var selectedEntity: Entity!
     
     
+    var characters: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.shadowImage = UIImage()
         //selectedEntity = entities[0]
     }
 
@@ -49,6 +51,8 @@ class MainListController: UITableViewController {
         
         return cell
     }
+    
+    
     
 //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        selectedEntity = entities[indexPath.row]
