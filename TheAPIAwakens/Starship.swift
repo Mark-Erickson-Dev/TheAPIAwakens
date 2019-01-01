@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Starship: SWEntity, Codable {
+struct Starship: SWEntity, Codable, Measureable {
     let name: String
     let manufacturer: String
     let costInCredits: String
@@ -40,8 +40,14 @@ struct StarshipResults: Codable {
     }
 }
 
-struct Planet: Codable {
+struct Planet: SWEntity, Codable {
     let name: String
+    let length: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case length = "diameter"
+    }
 }
 
 //class Starship: Vehicle {

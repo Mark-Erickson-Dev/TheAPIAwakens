@@ -49,8 +49,6 @@ class DetailListController: UIViewController {
     var vehicles: [Vehicle]!
     var characters: [Character]!
     var starships: [Starship]!
-    
-    var associatedStarships: [Starship]!
 
     var entityCount: Int = 0
     var selectedEntities = [SWEntity]()
@@ -69,7 +67,7 @@ class DetailListController: UIViewController {
         pickerView.dataSource = self
         pickerView.delegate = self
         
-        characters = [Character]()//Stub.dummyCharacters
+        characters = Stub.dummyCharacters
         vehicles = Stub.dummyVehicles
         starships = Stub.dummyStarships
         
@@ -84,7 +82,13 @@ class DetailListController: UIViewController {
         metricButtons.forEach({$0.setTitleColor(.white, for: .normal)})
         creditsButton.setTitleColor(UIColor.white, for: .normal)
 
-        setupUI()
+        if type == .characters {
+            specView.isHidden = true
+            traitView.isHidden = false
+        } else {
+            traitView.isHidden = true
+            specView.isHidden = false
+        }
         nameLabel.text = ""
         vehicleTextView.text = ""
         starshipTextView.text = ""
@@ -96,35 +100,26 @@ class DetailListController: UIViewController {
         largestLabel.text = ""
     }
     
-    func meh(array: [SWEntity]) {
-        self.configureView()
-        self.pickerView.reloadAllComponents()
-        self.setSmallestAndLargestLabels(array: array)
-        self.allButtons.forEach({$0.isEnabled = true})
-        self.activityIndicator.stopAnimating()
-    }
-    
     func getSwapiData() {
         activityIndicator.startAnimating()
         client.getData(for: type) { results, error in
 
             if let results = results {
+                self.entityCount = results.count
+                //print("Results Count: \(results.count)")
                 switch self.type {
                 case .characters:
                     self.characters = results as? [Character]
-                    self.entityCount = self.characters.count
                     //self.characters.forEach({print($0.name)})
-                    print("\nCharacter count: \(self.characters.count)")
+                    //print("\nCharacter count: \(self.characters.count)")
                 case .vehicles:
                     self.vehicles = results as? [Vehicle]
-                    self.entityCount = self.vehicles.count
                     //self.vehicles.forEach({print($0.name)})
-                    print("\nVehicle count: \(self.vehicles.count)")
+                    //print("\nVehicle count: \(self.vehicles.count)")
                 case .starships:
                     self.starships = results as? [Starship]
-                    self.entityCount = self.starships.count
                     //self.starships.forEach({print($0.name)})
-                    print("\nStarship count: \(self.starships.count)")
+                    //print("\nStarship count: \(self.starships.count)")
                 }
 
                 self.configureView()
@@ -144,55 +139,12 @@ class DetailListController: UIViewController {
             let character = characters[selectedRow]
             nameLabel.text = character.name
             bornLabel.text = character.birthYear
-            
-            client.getData(for: character.homeworld) { (result: Planet?, error) in
-                if let planet = result {
-                    DispatchQueue.main.async {
-                        self.homeLabel.text = planet.name
-                    }
-                }
-            }
-
+            setPlanetLabel(from: character.homeworld)
+            setTextView(for: vehicleTextView, from: character.vehicles, type: Vehicle.self, defaultString: SWEntityType.vehicles.rawValue)
+            setTextView(for: starshipTextView, from: character.starships, type: Starship.self, defaultString: SWEntityType.starships.rawValue)
             heightLabel.text = makeMeasurement(from: character.length)
             eyesLabel.text = character.eyeColor
             hairLabel.text = character.hairColor
-
-            starshipTextView.text = ""
-            if character.starships.isEmpty {
-                self.starshipTextView.text += "No associated starships."
-            } else {
-                var names = [String]()
-                for starshipUrl in character.starships {
-                    client.getData(for: starshipUrl) { (result: Starship?, error) in
-                        if let starship = result {
-                            DispatchQueue.main.async {
-                                names.append(starship.name)
-                                let joinedString = names.joined(separator: ", ")
-                                self.starshipTextView.text = "Associated starships: " + joinedString
-                            }
-                        }
-                    }
-                }
-            }
-
-            vehicleTextView.text = ""
-            if character.vehicles.isEmpty {
-                self.vehicleTextView.text += "No associated vehicles."
-            } else {
-                var names = [String]()
-                for vehicleUrl in character.vehicles {
-                    client.getData(for: vehicleUrl) { (result: Vehicle?, error) in
-                        if let vehicle = result {
-                            DispatchQueue.main.async {
-                                names.append(vehicle.name)
-                                let joinedString = names.joined(separator: ", ")
-                                self.vehicleTextView.text = "Associated vehicles: " + joinedString
-                            }
-                        }
-                    }
-                }
-            }
-            
         case .vehicles:
             let vehicle = vehicles[selectedRow]
             nameLabel.text = vehicle.name
@@ -209,6 +161,36 @@ class DetailListController: UIViewController {
             lengthLabel.text = makeMeasurement(from: starship.length)
             classLabel.text = starship.starshipClass
             crewLabel.text = starship.crew
+        }
+    }
+    
+    func setPlanetLabel(from urlString: String) {
+        client.getData(for: urlString) { (result: Planet?, error) in
+            if let planet = result {
+                DispatchQueue.main.async {
+                    self.homeLabel.text = planet.name
+                }
+            }
+        }
+    }
+    
+    func setTextView<T: SWEntity>(for textView: UITextView, from array: [String], type: T.Type, defaultString: String) {
+        textView.text = ""
+        if array.isEmpty {
+            textView.text += "No Associated \(defaultString)."
+        } else {
+            var names = [String]()
+            for urlString in array {
+                client.getData(for: urlString) { (result: T?, error) in
+                    if let entity = result {
+                        DispatchQueue.main.async {
+                            names.append(entity.name)
+                            let joinedString = names.joined(separator: ", ")
+                            textView.text = "Associated \(defaultString): " + joinedString
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -269,28 +251,18 @@ class DetailListController: UIViewController {
         return Int(round(100 * (Double(credits) * rate))/100)
     }
     
-    func setupUI() {
-        if type == .characters {
-            specView.isHidden = true
-            traitView.isHidden = false
-        } else {
-            traitView.isHidden = true
-            specView.isHidden = false
-        }
-    }
-
     func setSmallestAndLargestLabels(array: [SWEntity]) {
-        var cleanArray = [SWEntity]()
-
+        
+        var arrayOfDoubles = [SWEntity]()
         array.forEach({
             let length = $0.length.replacingOccurrences(of: ",", with: "")
             if let _ = Double(length) {
-                cleanArray.append($0)
+                arrayOfDoubles.append($0)
             }
         })
-        //cleanArray.forEach({print("\($0.name), \($0.length)")})
+        //arrayOfDoubles.forEach({print("\($0.name), \($0.length)")})
         //print("---------------")
-        let sortedArray = cleanArray.sorted(by: {
+        let sortedArray = arrayOfDoubles.sorted(by: {
             let length0 = $0.length.replacingOccurrences(of: ",", with: "")
             let length1 = $1.length.replacingOccurrences(of: ",", with: "")
             return Double(length0)! < Double(length1)!
@@ -325,14 +297,6 @@ class DetailListController: UIViewController {
         }
     }
     
-    @IBAction func englishButtonTapped(_ sender: Any) {
-        toggleMeasurementUnit()
-    }
-    
-    @IBAction func metricButtonTapped(_ sender: Any) {
-        toggleMeasurementUnit()
-    }
-    
     func toggleMonetaryUnit() {
         isCredits = !isCredits
         
@@ -347,7 +311,7 @@ class DetailListController: UIViewController {
         setCostLabel()
     }
     
-    func toggleMeasurementUnit() {
+    @IBAction func toggleMeasurementUnit() {
         isMeters = !isMeters
         
         if isMeters {
@@ -371,10 +335,6 @@ class DetailListController: UIViewController {
         case .starships:
             lengthLabel.text = makeMeasurement(from: starships[selectedRow].length)
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Character: SWEntity, Codable {
+struct Character: SWEntity, Codable, Measureable {
     let name: String
     let birthYear: String
     let homeworld: String

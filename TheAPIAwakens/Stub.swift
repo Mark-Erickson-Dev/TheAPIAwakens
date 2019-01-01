@@ -10,24 +10,24 @@ import Foundation
 
 struct Stub {
     
-//    static var dummyCharacter: Character {
-//        return Character(name: "", birthYear: "", homeworld: "", length: "", eyeColor: "", hairColor: "")
-//    }
-//
-//    static var dummyCharacters: [Character] = [Stub.dummyCharacter]
-//
-//    static var character: Character {
-//        return Character(name: "Luke Skywalker", birthYear: "19BBY", homeworld: "Tatooine", length: "172", eyeColor: "Blue", hairColor: "Blond")
-//    }
-//
-//    static var characters: [Character] = [
-//
-//        Character(name: "Han Solo", birthYear: "20BBY", homeworld: "Hoth", length: "188", eyeColor: "Brown", hairColor: "Brown"),
-//
-//        Character(name: "Luke Skywalker", birthYear: "19BBY", homeworld: "Tatooine", length: "172", eyeColor: "Blue", hairColor: "Blond"),
-//
-//        Character(name: "Leia Organa", birthYear: "19BBY", homeworld: "Tatooine", length: "153", eyeColor: "Brown", hairColor: "Brown"),
-//        ]
+    static var dummyCharacter: Character {
+        return Character(name: "", birthYear: "", homeworld: "", length: "", eyeColor: "", hairColor: "", vehicles: [], starships: [])
+    }
+
+    static var dummyCharacters: [Character] = [Stub.dummyCharacter]
+
+    static var character: Character {
+        return Character(name: "Luke Skywalker", birthYear: "19BBY", homeworld: "https://swapi.co/api/planets/1/", length: "172", eyeColor: "blue", hairColor: "blond", vehicles: ["https://swapi.co/api/vehicles/14/", "https://swapi.co/api/vehicles/30/"], starships: ["https://swapi.co/api/starships/12/", "https://swapi.co/api/starships/22/"])
+    }
+
+    static var characters: [Character] = [
+
+        Character(name: "Han Solo", birthYear: "29BBY", homeworld: "https://swapi.co/api/planets/22/", length: "180", eyeColor: "brown", hairColor: "brown", vehicles: [], starships: ["https://swapi.co/api/starships/10/", "https://swapi.co/api/starships/22/"]),
+
+        Character(name: "Luke Skywalker", birthYear: "19BBY", homeworld: "https://swapi.co/api/planets/1/", length: "172", eyeColor: "blue", hairColor: "blond", vehicles: ["https://swapi.co/api/vehicles/14/", "https://swapi.co/api/vehicles/30/"], starships: ["https://swapi.co/api/starships/12/", "https://swapi.co/api/starships/22/"]),
+
+        Character(name: "Leia Organa", birthYear: "19BBY", homeworld: "https://swapi.co/api/planets/2/", length: "150", eyeColor: "brown", hairColor: "brown", vehicles: ["https://swapi.co/api/vehicles/30/"], starships: []),
+        ]
     
     static var dummyVehicle: Vehicle {
         return Vehicle(name: "", manufacturer: "", costInCredits: "", length: "", vehicleClass: "", crew: "")

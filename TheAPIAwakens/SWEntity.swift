@@ -8,9 +8,12 @@
 
 import UIKit
 
-protocol SWEntity: Codable {
-    var type: SWEntityType { get }
+protocol SWEntity: Codable, Measureable {
+    //var type: SWEntityType { get }
     var name: String { get }
+}
+
+protocol Measureable {
     var length: String { get }
 }
 

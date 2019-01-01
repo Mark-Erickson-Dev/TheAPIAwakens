@@ -45,10 +45,7 @@ class SwapiClient {
         self.init(configuration: .default)
     }
     
-    typealias GenericCompletionHandler<T: Codable> = (T?, Error?) -> Void
-    typealias PlanetCompletionHandler = (Planet?, Error?) -> Void
-    typealias VehicleCompletionHandler = (Vehicle?, Error?) -> Void
-    typealias StarshipsCompletionHandler = (Starship?, Error?) -> Void
+    typealias GenericCompletionHandler<T: SWEntity> = (T?, Error?) -> Void
     typealias SWEntityCompletionHandler = ([SWEntity]?, Error?) -> Void
     
     private func getSwapiData(for requestType: SWEntityType, completion: @escaping SWEntityCompletionHandler) {
@@ -155,7 +152,7 @@ class SwapiClient {
 //        task.resume()
 //    }
     
-    private func getGenericSwapiData<T: Codable>(for urlString: String, completionHandler completion: @escaping GenericCompletionHandler<T>) {
+    private func getGenericSwapiData<T: SWEntity>(for urlString: String, completionHandler completion: @escaping GenericCompletionHandler<T>) {
         guard let url = URL(string: urlString) else {
             completion(nil, SwapiError.invalidUrl)
             return
@@ -196,7 +193,7 @@ class SwapiClient {
             }
     }
 
-    func getData<T: Codable>(for urlString: String, completionHandler completion: @escaping GenericCompletionHandler<T>) {
+    func getData<T: SWEntity>(for urlString: String, completionHandler completion: @escaping GenericCompletionHandler<T>) {
         getGenericSwapiData(for: urlString) { result, error in
             completion(result, error)
         }

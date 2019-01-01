@@ -13,7 +13,6 @@
 		8E7629462129DFA600CA2FB8 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7629452129DFA600CA2FB8 /* Stub.swift */; };
 		8E83389321CD707C004FA39F /* JSONDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83389221CD707C004FA39F /* JSONDownloader.swift */; };
 		8E83389521CD7263004FA39F /* SwapiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83389421CD7263004FA39F /* SwapiClient.swift */; };
-		8E83389721CD7F7E004FA39F /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83389621CD7F7E004FA39F /* Results.swift */; };
 		8E83389921CDBEC6004FA39F /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83389821CDBEC6004FA39F /* CharacterViewModel.swift */; };
 		8E9D5E7B2129D1DD009DB918 /* DetailListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9D5E7A2129D1DD009DB918 /* DetailListController.swift */; };
 		8EBEAA5721C87793005C44C4 /* SwapiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBEAA5621C87793005C44C4 /* SwapiError.swift */; };
@@ -35,7 +34,6 @@
 		8E7629452129DFA600CA2FB8 /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		8E83389221CD707C004FA39F /* JSONDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDownloader.swift; sourceTree = "<group>"; };
 		8E83389421CD7263004FA39F /* SwapiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapiClient.swift; sourceTree = "<group>"; };
-		8E83389621CD7F7E004FA39F /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		8E83389821CDBEC6004FA39F /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		8E9D5E7A2129D1DD009DB918 /* DetailListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListController.swift; sourceTree = "<group>"; };
 		8EBEAA5621C87793005C44C4 /* SwapiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapiError.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 				8E9D5E7A2129D1DD009DB918 /* DetailListController.swift */,
 				8E83389221CD707C004FA39F /* JSONDownloader.swift */,
 				8E83389421CD7263004FA39F /* SwapiClient.swift */,
-				8E83389621CD7F7E004FA39F /* Results.swift */,
 				8E4C7F6E21CB353600849DAC /* Endpoint.swift */,
 				8EE574572128ECDE0010F8BF /* Main.storyboard */,
 				8EE5745A2128ECDF0010F8BF /* Assets.xcassets */,
@@ -186,7 +183,6 @@
 				8EE574662128ED810010F8BF /* Character.swift in Sources */,
 				8EE574562128ECDE0010F8BF /* MainListController.swift in Sources */,
 				8E4C7F6D21CAD8A400849DAC /* Alert.swift in Sources */,
-				8E83389721CD7F7E004FA39F /* Results.swift in Sources */,
 				8EBEAA5721C87793005C44C4 /* SwapiError.swift in Sources */,
 				8E4C7F6F21CB353600849DAC /* Endpoint.swift in Sources */,
 				8E83389921CDBEC6004FA39F /* CharacterViewModel.swift in Sources */,

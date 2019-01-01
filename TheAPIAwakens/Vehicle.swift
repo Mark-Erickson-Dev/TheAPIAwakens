@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vehicle: SWEntity, Codable {
+struct Vehicle: SWEntity, Codable, Measureable {
     let name: String
     let manufacturer: String
     let costInCredits: String
