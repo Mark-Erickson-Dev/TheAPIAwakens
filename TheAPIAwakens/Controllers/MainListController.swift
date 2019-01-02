@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainListController.swift
 //  TheAPIAwakens
 //
 //  Created by Mark Erickson on 8/18/18.
@@ -10,28 +10,15 @@ import UIKit
 
 class MainListController: UITableViewController {
 
-    //let entities = SWEntityData.entities
     let entities = MainMenuData.mainMenuEntities
-    
-    
-    //var selectedEntity: Entity!
-    
-    
-    var characters: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.shadowImage = UIImage()
-        //selectedEntity = entities[0]
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entities.count
     }
@@ -40,74 +27,26 @@ class MainListController: UITableViewController {
         return 210
     }
     
+    // Populates the tableView with objects that represent Star Wars entities (Characters, Vehicles, and Starships).
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EntityCell", for: indexPath) as! EntityTableViewCell
-        
-        //cell.entityImage.image = entities[indexPath.row].icon
-        //cell.entityLabel.text = entities[indexPath.row].type.rawValue
-        
+
         cell.entityImage.image = entities[indexPath.row].icon
-        cell.entityLabel.text = entities[indexPath.row].type.rawValue
+        cell.entityLabel.text = entities[indexPath.row].type.description
         
         return cell
     }
-    
-    
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        selectedEntity = entities[indexPath.row]
-//    }
-    
+
+    // Based on the cell selected, the MainListController passes a Star Wars entity type to the DetailListController.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showEntity" {
             let destination = segue.destination as! DetailListController
 
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                
-                //let selectedEntity = entities[selectedIndexPath.row]
-                //destination.entity = selectedEntity
-                
                 let selectedEntityType = entities[selectedIndexPath.row].type
                 destination.type = selectedEntityType
             }
         }
     }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

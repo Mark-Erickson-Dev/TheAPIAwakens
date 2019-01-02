@@ -1,5 +1,5 @@
 //
-//  MehTableViewController.swift
+//  DetailListController.swift
 //  TheAPIAwakens
 //
 //  Created by Mark Erickson on 8/19/18.
@@ -75,8 +75,9 @@ class DetailListController: UIViewController {
         getSwapiData()
     }
     
+    // Sets up the default values for the view (blank labels). Also disables buttons before the data is returned.
     func defaultView() {
-        self.navigationItem.title = type.rawValue
+        self.navigationItem.title = type.description
         
         allButtons.forEach({$0.isEnabled = false})
         metricButtons.forEach({$0.setTitleColor(.white, for: .normal)})
@@ -100,37 +101,34 @@ class DetailListController: UIViewController {
         largestLabel.text = ""
     }
     
+    // Makes a request to the Swapi API and returns an array(results) of Star Wars entities.
+    // On the main thread: The view is then configured for an entity and the pickerView is reloaded with all entities of a given type.
+    // All buttons are enabled after the data is returned.
     func getSwapiData() {
         activityIndicator.startAnimating()
         client.getData(for: type) { results, error in
 
             if let results = results {
                 self.entityCount = results.count
-                //print("Results Count: \(results.count)")
                 switch self.type {
                 case .characters:
                     self.characters = results as? [Character]
-                    //self.characters.forEach({print($0.name)})
-                    //print("\nCharacter count: \(self.characters.count)")
                 case .vehicles:
                     self.vehicles = results as? [Vehicle]
-                    //self.vehicles.forEach({print($0.name)})
-                    //print("\nVehicle count: \(self.vehicles.count)")
                 case .starships:
                     self.starships = results as? [Starship]
-                    //self.starships.forEach({print($0.name)})
-                    //print("\nStarship count: \(self.starships.count)")
                 }
 
                 self.configureView()
                 self.pickerView.reloadAllComponents()
-                self.setSmallestAndLargestLabels(array: results)
+                self.setSmallestAndLargestLabels(entityArray: results)
                 self.allButtons.forEach({$0.isEnabled = true})
                 self.activityIndicator.stopAnimating()
             }
         }
     }
     
+    // Configures the view for an entity type, setting all labels and textviews.
     func configureView() {
         let selectedRow = pickerView.selectedRow(inComponent: 0)
         
@@ -140,8 +138,8 @@ class DetailListController: UIViewController {
             nameLabel.text = character.name
             bornLabel.text = character.birthYear
             setPlanetLabel(from: character.homeworld)
-            setTextView(for: vehicleTextView, from: character.vehicles, type: Vehicle.self, defaultString: SWEntityType.vehicles.rawValue)
-            setTextView(for: starshipTextView, from: character.starships, type: Starship.self, defaultString: SWEntityType.starships.rawValue)
+            setTextView(for: vehicleTextView, from: character.vehicles, type: Vehicle.self, defaultString: SWEntityType.vehicles.description)
+            setTextView(for: starshipTextView, from: character.starships, type: Starship.self, defaultString: SWEntityType.starships.description)
             heightLabel.text = makeMeasurement(from: character.length)
             eyesLabel.text = character.eyeColor
             hairLabel.text = character.hairColor
@@ -164,6 +162,8 @@ class DetailListController: UIViewController {
         }
     }
     
+    // Makes a request to the Swapi API that returns a planet.
+    // On the main thread: The planet label is set according to the planet's name.
     func setPlanetLabel(from urlString: String) {
         client.getData(for: urlString) { (result: Planet?, error) in
             if let planet = result {
@@ -174,6 +174,8 @@ class DetailListController: UIViewController {
         }
     }
     
+    // Makes a request to the Swapi API that returns an entity type. The type is determined when the function is called.
+    // On the main thread: The entities returned, if any, are appended to an array and then dispalyed in a textview.
     func setTextView<T: SWEntity>(for textView: UITextView, from array: [String], type: T.Type, defaultString: String) {
         textView.text = ""
         if array.isEmpty {
@@ -194,25 +196,29 @@ class DetailListController: UIViewController {
         }
     }
 
-    func makeCost(from cost: String) -> String {
-        var finalCost: Int = 0
+    // Takes a cost value as a string, converts it to a Double to perform arithmetic operations, and then returns it as a string for a label.
+    func makeCost(from costAsString: String) -> String {
         
-        guard cost != "unknown" else {
+        guard costAsString != "unknown" else {
             return "unknown"
         }
         
-        if let cost = Int(cost) {
-            if isCredits == false {
-                finalCost = convertCreditsToUSD(credits: cost, rate: rate)
-                return "$\(finalCost)"
+        if isCredits == false {
+            if let cost = Double(costAsString) {
+                let convertedCost = cost * rate
+                let roundedCost = String(format: "%.2f", convertedCost)
+                return "$\(roundedCost)"
             } else {
-                return "\(cost)"
+                return ""
             }
         } else {
-            return ""
+            return costAsString
         }
     }
     
+    // Takes a measurement value as a string, converts it to a Double to perform arithmetic operations, and then returns it as a string for a label.
+    // Commas are removed from strings so they can be converted to Doubles.
+    // Character measurements are divided by 100 to convert centimeters to meters.
     func makeMeasurement(from measurementAsString: String) -> String {
         
         guard measurementAsString != "unknown" else {
@@ -221,59 +227,51 @@ class DetailListController: UIViewController {
         
         let cleanString = measurementAsString.replacingOccurrences(of: ",", with: "")
         
-        var finalMeasurement: Double = 0
         if let measurement = Double(cleanString) {
             if isMeters == false {
                 if type == .characters {
-                    finalMeasurement = convertMetersToInches(measurementInMeters: measurement/100)
-                    return "\(finalMeasurement)in"
+                    let convertedMeasurement = (measurement * 39.370079) / 100
+                    let formattedMeasurement = String(format: "%.2f", convertedMeasurement)
+                    return "\(formattedMeasurement)in"
                 } else {
-                    finalMeasurement = convertMetersToInches(measurementInMeters: measurement)
-                    return "\(finalMeasurement)in"
+                    let convertedMeasurement = measurement * 39.370079
+                    let formattedMeasurement = String(format: "%.2f", convertedMeasurement)
+                    return "\(formattedMeasurement)in"
                 }
             } else {
                 if type == .characters {
+                    
                     return "\(measurement/100)m"
                 } else {
-                    return "\(measurement)m"
+                    return "\(cleanString)m"
                 }
             }
         } else {
             return ""
         }
     }
-    
-    func convertMetersToInches(measurementInMeters: Double) -> Double {
-        return Double(round(100 * (measurementInMeters * 39.370079))/100)
-    }
-    
-    func convertCreditsToUSD(credits: Int, rate: Double) -> Int {
-        return Int(round(100 * (Double(credits) * rate))/100)
-    }
-    
-    func setSmallestAndLargestLabels(array: [SWEntity]) {
-        
-        var arrayOfDoubles = [SWEntity]()
-        array.forEach({
-            let length = $0.length.replacingOccurrences(of: ",", with: "")
-            if let _ = Double(length) {
-                arrayOfDoubles.append($0)
+
+    // Takes an array of Star Wars entities and sorts them, according to their length.
+    // Values that cannot be converted to Double, such as "unknown", are discarded.
+    // Commas are removed from strings so they can be converted to Doubles.
+    // The smallestLabel and largestLabel are set to the smallest and largest values of the array.
+    func setSmallestAndLargestLabels(entityArray: [SWEntity]) {
+        var cleanArray = [(name: String, length: Double)]()
+        entityArray.forEach({
+            let name = $0.name
+            let cleanLength = $0.length.replacingOccurrences(of: ",", with: "")
+            
+            if let length = Double(cleanLength) {
+                cleanArray.append((name, length))
             }
         })
-        //arrayOfDoubles.forEach({print("\($0.name), \($0.length)")})
-        //print("---------------")
-        let sortedArray = arrayOfDoubles.sorted(by: {
-            let length0 = $0.length.replacingOccurrences(of: ",", with: "")
-            let length1 = $1.length.replacingOccurrences(of: ",", with: "")
-            return Double(length0)! < Double(length1)!
-        })
-        //print("---------------")
-        //sortedArray.forEach({print("\($0.name), \($0.length)")})
-        
+        let sortedArray = cleanArray.sorted(by: {$0.length < $1.length})
         smallestLabel.text = sortedArray.first?.name
         largestLabel.text = sortedArray.last?.name
     }
     
+    // Presents an alertView asking the user to input an exchange rate value.
+    // After an appropriate rate value is attained, toggleMonetaryUnit is called to display the cost in US dollars.
     @IBAction func usdButtonTapped(_ sender: Any) {
         let alert = Alert()
         alert.showRateAlert(vc: self) { result in
@@ -284,21 +282,15 @@ class DetailListController: UIViewController {
         }
     }
     
+    // Calls the toggleMonetaryUnit function to display the entity cost in credits.
     @IBAction func creditsButtonTapped(_ sender: Any) {
         toggleMonetaryUnit()
     }
     
-    func setCostLabel() {
-        let selectedRow = pickerView.selectedRow(inComponent: 0)
-        if type == .vehicles {
-           costLabel.text = makeCost(from: vehicles[selectedRow].costInCredits)
-        } else if type == .starships {
-            costLabel.text = makeCost(from: starships[selectedRow].costInCredits)
-        }
-    }
-    
+    // Sets the monetary buttons to the correct color, according to the bool isCredits.
+    // setCostLabel is called to display the cost value according, to the unit designated (credits or US dollars).
     func toggleMonetaryUnit() {
-        isCredits = !isCredits
+        isCredits.toggle()
         
         if isCredits {
             usdButton.setTitleColor(UIColor.gray, for: .normal)
@@ -311,8 +303,20 @@ class DetailListController: UIViewController {
         setCostLabel()
     }
     
+    // Sets the costLabel to the value returned by the makeCost function.
+    func setCostLabel() {
+        let selectedRow = pickerView.selectedRow(inComponent: 0)
+        if type == .vehicles {
+           costLabel.text = makeCost(from: vehicles[selectedRow].costInCredits)
+        } else if type == .starships {
+            costLabel.text = makeCost(from: starships[selectedRow].costInCredits)
+        }
+    }
+    
+    // Sets the measurement buttons to the correct color, according to the bool isMeters.
+    // setMeasurementLabel is called to display the cost value according to the unit designated (meters or inches).
     @IBAction func toggleMeasurementUnit() {
-        isMeters = !isMeters
+        isMeters.toggle()
         
         if isMeters {
             englishButtons.forEach({$0.setTitleColor(.gray, for: .normal)})
@@ -325,6 +329,7 @@ class DetailListController: UIViewController {
         setMeasurementLabel()
     }
     
+    // Sets the heightLabel/lengthLabel to the value returned by the makeCost function.
     func setMeasurementLabel() {
         let selectedRow = pickerView.selectedRow(inComponent: 0)
         switch type {
@@ -344,11 +349,13 @@ extension DetailListController: UIPickerViewDataSource, UIPickerViewDelegate {
         return 1
     }
     
+    // Tells the pickerView to populate a number of rows equal the count of entites returned from the Swapi API.
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         return entityCount
     }
     
+    // Populates the pickerView with the names of the entities returned from the Swapi API.
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         switch type {
@@ -361,6 +368,7 @@ extension DetailListController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
     
+    // Configures the view according the entity the user selects with the pickerView.
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         configureView()
     }

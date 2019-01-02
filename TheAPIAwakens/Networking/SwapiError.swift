@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  SwapiError.swift
 //  TheAPIAwakens
 //
 //  Created by Mark Erickson on 12/17/18.
