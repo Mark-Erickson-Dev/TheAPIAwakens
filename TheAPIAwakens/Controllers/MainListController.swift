@@ -11,6 +11,7 @@ import UIKit
 class MainListController: UITableViewController {
 
     let entities = MainMenuData.mainMenuEntities
+    let client = SwapiClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,5 +49,4 @@ class MainListController: UITableViewController {
             }
         }
     }
-    
 }

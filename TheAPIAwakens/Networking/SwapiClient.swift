@@ -16,7 +16,6 @@ class SwapiClient {
     
     var resultsArray = [SWEntity]()
     var pageNumber = 1
-    
     let decoder = JSONDecoder()
     let session: URLSession
     
@@ -73,12 +72,14 @@ class SwapiClient {
                         }
                         if self.resultsArray.count == count {
                             DispatchQueue.main.async {
+                                self.pageNumber = 1
                                 completion(self.resultsArray, nil)
                             }
                         } else {
                             self.getSwapiData(for: requestType) { results, error in
                                 if self.resultsArray.count == count {
                                     DispatchQueue.main.async {
+                                        self.pageNumber = 1
                                         completion(self.resultsArray, nil)
                                     }
                                 }
@@ -144,4 +145,5 @@ class SwapiClient {
             completion(result, error)
         }
     }
+    
 }

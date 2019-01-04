@@ -117,7 +117,7 @@
                                             <constraint firstAttribute="height" constant="40" id="nZd-6b-wiY"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0o4-fo-9ch" userLabel="Spec View">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0o4-fo-9ch" userLabel="Spec View" customClass="SpecView" customModule="TheAPIAwakens" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="40" width="375" height="334"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hTe-35-gBP">
@@ -194,7 +194,7 @@
                                                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </state>
                                                                                         <connections>
-                                                                                            <action selector="usdButtonTapped:" destination="QHr-nH-k3h" eventType="touchUpInside" id="cUK-Ad-b9d"/>
+                                                                                            <action selector="usdButtonTapped:" destination="0o4-fo-9ch" eventType="touchUpInside" id="CAt-9N-QCj"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzW-w9-3OK">
@@ -203,7 +203,7 @@
                                                                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </state>
                                                                                         <connections>
-                                                                                            <action selector="creditsButtonTapped:" destination="QHr-nH-k3h" eventType="touchUpInside" id="lic-TH-Hsg"/>
+                                                                                            <action selector="creditsButtonTapped:" destination="0o4-fo-9ch" eventType="touchUpInside" id="7u0-xd-MEE"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -265,7 +265,7 @@
                                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="toggleMeasurementUnit" destination="QHr-nH-k3h" eventType="touchUpInside" id="s18-Xm-iCT"/>
+                                                                                    <action selector="toggleMeasurementUnit" destination="0o4-fo-9ch" eventType="touchUpInside" id="trm-op-V1K"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqG-EC-xtL">
@@ -274,7 +274,7 @@
                                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="toggleMeasurementUnit" destination="QHr-nH-k3h" eventType="touchUpInside" id="eVD-M3-lkB"/>
+                                                                                    <action selector="toggleMeasurementUnit" destination="0o4-fo-9ch" eventType="touchUpInside" id="1c8-ey-5yG"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -387,8 +387,20 @@
                                             <constraint firstItem="hTe-35-gBP" firstAttribute="top" secondItem="0o4-fo-9ch" secondAttribute="top" constant="16" id="ek1-9a-AFV"/>
                                             <constraint firstItem="hTe-35-gBP" firstAttribute="leading" secondItem="0o4-fo-9ch" secondAttribute="leading" constant="20" id="maB-pO-A17"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="classLabel" destination="i0D-UM-FO6" id="QSG-Cj-kOF"/>
+                                            <outlet property="costLabel" destination="lqA-RK-5VD" id="stK-9A-To0"/>
+                                            <outlet property="creditsButton" destination="fzW-w9-3OK" id="cqh-2y-h7h"/>
+                                            <outlet property="crewLabel" destination="hfU-QY-yfO" id="XCb-JV-5wt"/>
+                                            <outlet property="englishButton" destination="MPt-tZ-aSO" id="E1u-IF-ANE"/>
+                                            <outlet property="lengthLabel" destination="3mB-Vj-7RS" id="q2R-1g-HLW"/>
+                                            <outlet property="makeLabel" destination="AGO-Nn-ue0" id="zZs-nB-X6p"/>
+                                            <outlet property="metricButton" destination="cqG-EC-xtL" id="4Na-f8-SBI"/>
+                                            <outlet property="nameLabel" destination="8yA-Dp-Df8" id="NEY-h4-w3q"/>
+                                            <outlet property="usdButton" destination="0ld-cN-Dnx" id="bvZ-d8-M3A"/>
+                                        </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-kz-V2B" userLabel="Trait View">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-kz-V2B" userLabel="Trait View" customClass="TraitView" customModule="TheAPIAwakens" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="40" width="375" height="340"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dTW-pd-AKu">
@@ -504,7 +516,7 @@
                                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="toggleMeasurementUnit" destination="QHr-nH-k3h" eventType="touchUpInside" id="yhZ-bZ-UeV"/>
+                                                                                    <action selector="toggleMeasurementUnit" destination="dN5-kz-V2B" eventType="touchUpInside" id="hnl-Bg-Mh7"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70U-Hn-qJ8">
@@ -513,7 +525,8 @@
                                                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="toggleMeasurementUnit" destination="QHr-nH-k3h" eventType="touchUpInside" id="drN-sf-OY4"/>
+                                                                                    <action selector="metricButtonTapped:" destination="lOe-Bl-jtl" eventType="touchUpInside" id="YXi-3C-Pn2"/>
+                                                                                    <action selector="toggleMeasurementUnit" destination="dN5-kz-V2B" eventType="touchUpInside" id="GeT-sc-1bb"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -655,6 +668,18 @@
                                             <constraint firstAttribute="bottom" secondItem="dTW-pd-AKu" secondAttribute="bottom" constant="92" id="utx-h3-uJ3"/>
                                             <constraint firstItem="xtU-lg-dJm" firstAttribute="leading" secondItem="dN5-kz-V2B" secondAttribute="leading" constant="8" id="vaT-gz-tdM"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="bornLabel" destination="pPx-Rs-jLi" id="309-1B-wsF"/>
+                                            <outlet property="englishButton" destination="PPb-kI-uEb" id="iMs-sO-JM8"/>
+                                            <outlet property="eyesLabel" destination="jCt-Ef-b0z" id="usK-8V-qfD"/>
+                                            <outlet property="hairLabel" destination="3jU-Eo-DTC" id="Rpb-dF-CgD"/>
+                                            <outlet property="heightLabel" destination="hxj-1e-jUM" id="Uka-ug-Tqd"/>
+                                            <outlet property="homeLabel" destination="E5I-b6-MJU" id="z3D-MG-MzS"/>
+                                            <outlet property="metricButton" destination="70U-Hn-qJ8" id="KT1-Wy-4nJ"/>
+                                            <outlet property="nameLabel" destination="8yA-Dp-Df8" id="zYJ-f8-QgN"/>
+                                            <outlet property="starshipTextView" destination="xtU-lg-dJm" id="695-Pv-frJ"/>
+                                            <outlet property="vehicleTextView" destination="YZ8-GH-qp2" id="Xr2-eX-2u9"/>
+                                        </connections>
                                     </view>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dzp-aX-jeX">
                                         <rect key="frame" x="0.0" y="388" width="375" height="145"/>
@@ -744,49 +769,25 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="NdI-yx-4Rc" id="rCW-eG-M1A"/>
-                        <outlet property="bornLabel" destination="pPx-Rs-jLi" id="mTE-Fp-N7R"/>
-                        <outlet property="classLabel" destination="i0D-UM-FO6" id="bTi-h7-oHN"/>
-                        <outlet property="costLabel" destination="lqA-RK-5VD" id="won-f8-KGC"/>
                         <outlet property="creditsButton" destination="fzW-w9-3OK" id="ox8-yy-yll"/>
-                        <outlet property="crewLabel" destination="hfU-QY-yfO" id="FDz-co-5tu"/>
-                        <outlet property="eyesLabel" destination="jCt-Ef-b0z" id="yvh-dN-ZaE"/>
-                        <outlet property="hairLabel" destination="3jU-Eo-DTC" id="oDi-He-JAC"/>
-                        <outlet property="heightLabel" destination="hxj-1e-jUM" id="ecY-P7-apb"/>
-                        <outlet property="homeLabel" destination="E5I-b6-MJU" id="qWT-YE-dyz"/>
                         <outlet property="largestLabel" destination="Zd2-fZ-Ykd" id="HlI-9b-WjG"/>
-                        <outlet property="lengthLabel" destination="3mB-Vj-7RS" id="lW3-ia-GeS"/>
-                        <outlet property="makeLabel" destination="AGO-Nn-ue0" id="knb-cX-JRP"/>
                         <outlet property="nameLabel" destination="8yA-Dp-Df8" id="1Ck-i7-w96"/>
-                        <outlet property="pickerView" destination="dzp-aX-jeX" id="PxD-7c-vBH"/>
+                        <outlet property="pickerView" destination="dzp-aX-jeX" id="vkC-wa-fxr"/>
                         <outlet property="smallestLabel" destination="1ta-66-cLL" id="Fgj-kc-TP4"/>
                         <outlet property="specView" destination="0o4-fo-9ch" id="6JO-Xy-Aku"/>
                         <outlet property="starshipTextView" destination="xtU-lg-dJm" id="yoE-ac-245"/>
-                        <outlet property="traitView" destination="dN5-kz-V2B" id="hOc-Oj-kG4"/>
-                        <outlet property="usdButton" destination="0ld-cN-Dnx" id="MV2-g1-lLa"/>
+                        <outlet property="traitView" destination="dN5-kz-V2B" id="aE9-1l-R1v"/>
                         <outlet property="vehicleTextView" destination="YZ8-GH-qp2" id="tdz-Ew-Tpz"/>
-                        <outletCollection property="traitValueLabelCollection" destination="pPx-Rs-jLi" collectionClass="NSMutableArray" id="aKd-re-LV6"/>
                         <outletCollection property="traitValueLabelCollection" destination="E5I-b6-MJU" collectionClass="NSMutableArray" id="VL2-82-fzQ"/>
                         <outletCollection property="traitValueLabelCollection" destination="hxj-1e-jUM" collectionClass="NSMutableArray" id="Lb9-2C-dlU"/>
                         <outletCollection property="traitValueLabelCollection" destination="jCt-Ef-b0z" collectionClass="NSMutableArray" id="Q49-4C-h6d"/>
                         <outletCollection property="traitValueLabelCollection" destination="3jU-Eo-DTC" collectionClass="NSMutableArray" id="Hrd-Uf-fWT"/>
-                        <outletCollection property="traitLabelCollection" destination="v3p-Zi-voF" collectionClass="NSMutableArray" id="Sju-P9-bPb"/>
-                        <outletCollection property="traitLabelCollection" destination="tgF-n2-2qn" collectionClass="NSMutableArray" id="GWb-lY-Io4"/>
-                        <outletCollection property="traitLabelCollection" destination="1Ok-Tc-hr5" collectionClass="NSMutableArray" id="HBj-v2-bLG"/>
-                        <outletCollection property="traitLabelCollection" destination="NxS-v4-hqv" collectionClass="NSMutableArray" id="Shr-DS-xIX"/>
-                        <outletCollection property="traitLabelCollection" destination="v0D-oh-adD" collectionClass="NSMutableArray" id="33A-Ky-46M"/>
                         <outletCollection property="specValueLabelCollection" destination="hfU-QY-yfO" collectionClass="NSMutableArray" id="Hjd-Bk-WqW"/>
-                        <outletCollection property="specLabelCollection" destination="ZZm-it-vBB" collectionClass="NSMutableArray" id="a3p-wY-Mlx"/>
                         <outletCollection property="specValueLabelCollection" destination="i0D-UM-FO6" collectionClass="NSMutableArray" id="6Cp-kB-b83"/>
                         <outletCollection property="specValueLabelCollection" destination="3mB-Vj-7RS" collectionClass="NSMutableArray" id="q8h-UB-Yys"/>
-                        <outletCollection property="specLabelCollection" destination="W0Z-nR-2f8" collectionClass="NSMutableArray" id="xwf-T8-hwC"/>
                         <outletCollection property="specValueLabelCollection" destination="lqA-RK-5VD" collectionClass="NSMutableArray" id="aAG-Tn-KEM"/>
-                        <outletCollection property="specLabelCollection" destination="kBs-CW-HWX" collectionClass="NSMutableArray" id="XXS-vR-Q6J"/>
                         <outletCollection property="specValueLabelCollection" destination="AGO-Nn-ue0" collectionClass="NSMutableArray" id="eGH-Pa-nbN"/>
-                        <outletCollection property="specLabelCollection" destination="xLZ-h4-NCA" collectionClass="NSMutableArray" id="jlk-ZL-bI6"/>
-                        <outletCollection property="specLabelCollection" destination="dr5-za-lOn" collectionClass="NSMutableArray" id="HjF-dj-ctD"/>
-                        <outletCollection property="englishButtons" destination="PPb-kI-uEb" collectionClass="NSMutableArray" id="YQp-GO-5l2"/>
                         <outletCollection property="metricButtons" destination="70U-Hn-qJ8" collectionClass="NSMutableArray" id="m0o-ar-2fR"/>
-                        <outletCollection property="englishButtons" destination="MPt-tZ-aSO" collectionClass="NSMutableArray" id="lGp-vm-UN0"/>
                         <outletCollection property="metricButtons" destination="cqG-EC-xtL" collectionClass="NSMutableArray" id="Mzn-YW-pSz"/>
                         <outletCollection property="allButtons" destination="0ld-cN-Dnx" collectionClass="NSMutableArray" id="5Om-ZL-Hrs"/>
                         <outletCollection property="allButtons" destination="fzW-w9-3OK" collectionClass="NSMutableArray" id="qDP-CK-Yal"/>
@@ -794,9 +795,11 @@
                         <outletCollection property="allButtons" destination="cqG-EC-xtL" collectionClass="NSMutableArray" id="FLi-i5-GV9"/>
                         <outletCollection property="allButtons" destination="PPb-kI-uEb" collectionClass="NSMutableArray" id="IiQ-5B-2m3"/>
                         <outletCollection property="allButtons" destination="70U-Hn-qJ8" collectionClass="NSMutableArray" id="UNs-Sj-DXU"/>
+                        <outletCollection property="traitValueLabelCollection" destination="pPx-Rs-jLi" collectionClass="NSMutableArray" id="0qJ-1n-z4z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="grc-nB-gGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lOe-Bl-jtl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3279" y="115"/>
         </scene>

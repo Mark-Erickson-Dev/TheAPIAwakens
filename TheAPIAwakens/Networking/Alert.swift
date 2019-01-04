@@ -25,7 +25,7 @@ class Alert {
     // The user input is validated and then returned by the completion handler.
     // If the exhange rate is not a valid non-negative number, an alert is presented to the user, notifiying them of the error.
     func showRateAlert(vc: UIViewController, completion: @escaping CompletionHandler) {
-    
+
         let alertController = UIAlertController(title: "Credit Conversion", message: "Enter an exchange rate", preferredStyle: .alert)
         
         alertController.addTextField(configurationHandler: { (textField) -> Void in

@@ -11,7 +11,7 @@ import Foundation
 struct Stub {
     
     static var dummyCharacter: Character {
-        return Character(name: "", birthYear: "", homeworld: "", length: "", eyeColor: "", hairColor: "", vehicles: [], starships: [])
+        return Character(name: "", birthYear: "", homeworld: "", length: "", eyeColor: "", hairColor: "", vehicles: [""], starships: [""])
     }
 
     static var dummyCharacters: [Character] = [Stub.dummyCharacter]
