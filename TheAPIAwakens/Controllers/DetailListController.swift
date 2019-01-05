@@ -33,12 +33,7 @@ class DetailListController: UIViewController {
     }()
 
     var entities: [SWEntity]!
-
-    var entityCount: Int = 0
     var type: SWEntityType = .characters
-    var isMeters: Bool = true
-    var isCredits: Bool = true
-    var rate: Double = 0.0
     let client = SwapiClient()
     
     override func viewDidLoad() {
@@ -86,25 +81,23 @@ class DetailListController: UIViewController {
 //        // Stub Data
 //        switch type {
 //        case .characters:
-//            entities = Stub.characters
 //            dataSource.update(with: Stub.characters, for: self.type)
+//            setSmallestAndLargestLabels(entityArray: Stub.characters)
 //        case .vehicles:
-//            entities = Stub.vehicles
 //            dataSource.update(with: Stub.vehicles, for: self.type)
+//            setSmallestAndLargestLabels(entityArray: Stub.vehicles)
 //        case .starships:
-//            entities = Stub.starships
 //            dataSource.update(with: Stub.starships, for: self.type)
+//            setSmallestAndLargestLabels(entityArray: Stub.starships)
 //        }
 //        allButtons.forEach({$0.isEnabled = true})
-//        setSmallestAndLargestLabels(entityArray: entities)
+        
         
         // Swapi Data
         activityIndicator.startAnimating()
         client.getData(for: type) { results, error in
 
             if let results = results {
-                self.entityCount = results.count
-                //self.entities = results
                 self.dataSource.update(with: results, for: self.type)
                 self.setSmallestAndLargestLabels(entityArray: results)
                 self.allButtons.forEach({$0.isEnabled = true})
